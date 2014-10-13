@@ -8,7 +8,9 @@
 
 import Cocoa
 
-class Menu {
+typealias Item = [String: AnyObject]
+
+class Menu: NSObject {
 
 	var menu: NSMenu
 	var target: AnyObject
@@ -16,6 +18,15 @@ class Menu {
 	var separator: NSMenuItem
 	var refresh: NSMenuItem
 	var quit: NSMenuItem
+	
+	var items: [Item] = [] {
+		didSet(newValue) {
+			println("Rebuild!")
+			rebuild()
+		}
+	}
+	
+	var menuItemToItem = [NSMenuItem: Item]()
 
 	init(target: AnyObject) {
 		self.target = target
@@ -25,14 +36,35 @@ class Menu {
 		refresh.target = target
 		quit = NSMenuItem(title: "Quit", action: "quit", keyEquivalent: "")
 		quit.target = target
+		super.init()
 		rebuild()
 	}
 
 	func rebuild() {
 		menu.removeAllItems()
+		buildFromItems()
 		menu.addItem(separator)
 		menu.addItem(refresh)
 		menu.addItem(quit)
+	}
+	
+	func buildFromItems() {
+		menuItemToItem.removeAll(keepCapacity: false)
+		for item in items {
+			let title = _titleForItem(item)
+			let menuItem = NSMenuItem(title: title, action: "itemSelected", keyEquivalent: "")
+			menuItem.target = self
+			menuItemToItem[menuItem] = item
+			menu.addItem(menuItem)
+		}
+	}
+	
+	func _titleForItem(item: Item) -> String {
+		if item["title"] != nil && item["title"]! is String {
+			return item["title"]! as String
+		} else {
+			return "Missing title: \(item)"
+		}
 	}
 
 }
@@ -52,11 +84,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	
 	func refresh() {
 		statusItem.title = "🔄"
+		menu.items = [
+			["title": "Loading..."]
+		]
 		let url = NSURL(string: "http://localhost:12799")!
 		let session = NSURLSession.sharedSession()
 		let task = session.dataTaskWithURL(url, completionHandler: { data, response, error in
 			if error != nil {
-				self.errored()
+				self.errored(error!.localizedDescription)
 			} else {
 			}
 		})
@@ -67,8 +102,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		exit(0)
 	}
 	
-	func errored() {
+	func errored(reason: String) {
 		statusItem.title = "🆖"
+		menu.items = [
+			["title": "Unable to load: \(reason)"]
+		]
 	}
 	
 	func applicationWillTerminate(aNotification: NSNotification) {
