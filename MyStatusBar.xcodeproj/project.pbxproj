@@ -8,9 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		F845569D19EB821900A0A767 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F845569C19EB821900A0A767 /* AppDelegate.swift */; };
-		F845569F19EB821900A0A767 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F845569E19EB821900A0A767 /* Images.xcassets */; };
-		F84556A219EB821900A0A767 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F84556A019EB821900A0A767 /* MainMenu.xib */; };
 		F84556AE19EB821900A0A767 /* MyStatusBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84556AD19EB821900A0A767 /* MyStatusBarTests.swift */; };
+		F84556B819EB824C00A0A767 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84556B719EB824C00A0A767 /* main.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,11 +26,10 @@
 		F845569719EB821900A0A767 /* MyStatusBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyStatusBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F845569B19EB821900A0A767 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F845569C19EB821900A0A767 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F845569E19EB821900A0A767 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		F84556A119EB821900A0A767 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		F84556A719EB821900A0A767 /* MyStatusBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyStatusBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F84556AC19EB821900A0A767 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F84556AD19EB821900A0A767 /* MyStatusBarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStatusBarTests.swift; sourceTree = "<group>"; };
+		F84556B719EB824C00A0A767 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,9 +72,8 @@
 			isa = PBXGroup;
 			children = (
 				F845569C19EB821900A0A767 /* AppDelegate.swift */,
-				F845569E19EB821900A0A767 /* Images.xcassets */,
-				F84556A019EB821900A0A767 /* MainMenu.xib */,
 				F845569A19EB821900A0A767 /* Supporting Files */,
+				F84556B719EB824C00A0A767 /* main.swift */,
 			);
 			path = MyStatusBar;
 			sourceTree = "<group>";
@@ -186,8 +183,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F845569F19EB821900A0A767 /* Images.xcassets in Resources */,
-				F84556A219EB821900A0A767 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,6 +200,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F84556B819EB824C00A0A767 /* main.swift in Sources */,
 				F845569D19EB821900A0A767 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -226,17 +222,6 @@
 			targetProxy = F84556A819EB821900A0A767 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		F84556A019EB821900A0A767 /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F84556A119EB821900A0A767 /* Base */,
-			);
-			name = MainMenu.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		F84556AF19EB821900A0A767 /* Debug */ = {
