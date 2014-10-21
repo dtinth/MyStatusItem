@@ -3,6 +3,7 @@ MyStatusItem
 ============
 
 Create your own status bar menu, without having any Cocoa knowledge, using your favorite programming language!
+I created this tool because I suck at Cocoa.
 
 <img src="http://i.imgur.com/hfNNYn7.png" width="372" height="290">
 
@@ -11,6 +12,13 @@ About
 -----
 
 This this a simple application that pulls the menu items from `http://localhost:12799/menu.json` and displays it on the status bar.
+
+
+Installation
+------------
+
+Download a [release](https://github.com/dtinth/MyStatusItem/releases)
+and put it in `/Application/` or whatever.
 
 
 
@@ -80,6 +88,26 @@ When clicked, the specified AppleScript will run.
 While <kbd>option</kbd> key is held down, the alternate item replaces the previous item.
 
 
+
+
+Running at Startup
+------------------
+
+Just put the app in Login Items.
+
+
+
+Help Me Please
+--------------
+
+Can someone create an icon for this? It would be appreciated.
+
+
+
+Repositioning MyStatusItem in the Status Bar
+--------------------------------------------
+
+Use the awesome [Bartender](http://www.macbartender.com/) app.
 
 
 
