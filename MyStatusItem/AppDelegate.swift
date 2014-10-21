@@ -131,13 +131,22 @@ class AppDelegate: NSObject, NSApplicationDelegate, MenuDelegate {
 	var statusItem: NSStatusItem!
 	var menu: Menu!
 	var timer: NSTimer?
+	var userDefaults = NSUserDefaults.standardUserDefaults()
 	
 	func applicationDidFinishLaunching(aNotification: NSNotification) {
+		_registerDefaults()
 		statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-1)
 		statusItem.highlightMode = true
 		menu = Menu(target: self)
 		statusItem.menu = menu.menu
 		refresh()
+	}
+	
+	func _registerDefaults() {
+		userDefaults.registerDefaults([
+			"menuURL":          "http://127.0.0.1:12799/menu.json",
+			"refreshInterval":  30.0,
+		])
 	}
 	
 	func handleUrl(url: String) {
@@ -180,27 +189,27 @@ class AppDelegate: NSObject, NSApplicationDelegate, MenuDelegate {
 				["title": "Loading..."]
 			]
 		}
-		var urlString = "http://localhost:12799/menu.json"
-		if let urlFromDefaults = NSUserDefaults.standardUserDefaults().stringForKey("menuURL") {
-			urlString = urlFromDefaults
-		}
-		if let url = NSURL(string: urlString) {
-			let session = NSURLSession.sharedSession()
-			let task = session.dataTaskWithURL(url, completionHandler: { data, response, error in
-				if error != nil {
-					self._errored(error!.localizedDescription)
-				} else {
-					let httpResponse = response as NSHTTPURLResponse
-					if httpResponse.statusCode != 200 {
-						self._errored("HTTP \(httpResponse.statusCode)")
+		if let urlString = userDefaults.stringForKey("menuURL") {
+			if let url = NSURL(string: urlString) {
+				let session = NSURLSession.sharedSession()
+				let task = session.dataTaskWithURL(url, completionHandler: { data, response, error in
+					if error != nil {
+						self._errored(error!.localizedDescription)
 					} else {
-						self._parseAndBuildMenu(data!)
+						let httpResponse = response as NSHTTPURLResponse
+						if httpResponse.statusCode != 200 {
+							self._errored("HTTP \(httpResponse.statusCode)")
+						} else {
+							self._parseAndBuildMenu(data!)
+						}
 					}
-				}
-			})
-			task.resume()
+				})
+				task.resume()
+			} else {
+				self._errored("Unable to construct URL for \(urlString)")
+			}
 		} else {
-			self._errored("Unable to construct URL for \(urlString)")
+			self._errored("Unable to get the menuURL")
 		}
 	}
 	
@@ -250,15 +259,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, MenuDelegate {
 	}
 	
 	func _doneOperation() {
-		var refreshPeriod = 30.0
-		let refreshPeriodFromDefaults = NSUserDefaults.standardUserDefaults().doubleForKey("refreshPeriod")
-		if refreshPeriodFromDefaults < 0 {
+		var refreshPeriod = userDefaults.floatForKey("refreshPeriod")
+		if refreshPeriod < 0 {
 			return
 		}
-		if refreshPeriodFromDefaults > 0 {
-			refreshPeriod = refreshPeriodFromDefaults
+		if refreshPeriod == 0 {
+			refreshPeriod = 30
 		}
-		timer = NSTimer(timeInterval: refreshPeriod, target: self, selector: Selector("autorefresh:"), userInfo: nil, repeats: false)
+		timer = NSTimer(timeInterval: Double(refreshPeriod), target: self, selector: Selector("autorefresh:"), userInfo: nil, repeats: false)
 		NSRunLoop.mainRunLoop().addTimer(timer!, forMode: NSDefaultRunLoopMode)
 		println("Make nstimer")
 	}

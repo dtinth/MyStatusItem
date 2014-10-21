@@ -104,6 +104,23 @@ Can someone create an icon for this? It would be appreciated.
 
 
 
+Changing the Default URL
+------------------------
+
+```bash
+defaults write th.in.dt.MyStatusItem menuURL -string 'http://localhost:22222/menu.json'
+```
+
+
+Changing the Refresh Period
+------------------------
+
+```bash
+defaults write th.in.dt.MyStatusItem refreshPeriod -float 10
+```
+
+
+
 Repositioning MyStatusItem in the Status Bar
 --------------------------------------------
 
