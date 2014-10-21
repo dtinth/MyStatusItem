@@ -130,8 +130,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, MenuDelegate {
 	
 	var statusItem: NSStatusItem!
 	var menu: Menu!
-	
-	var reloadInterval: NSTimeInterval = 30
 	var timer: NSTimer?
 	
 	func applicationDidFinishLaunching(aNotification: NSNotification) {
@@ -182,21 +180,28 @@ class AppDelegate: NSObject, NSApplicationDelegate, MenuDelegate {
 				["title": "Loading..."]
 			]
 		}
-		let url = NSURL(string: "http://localhost:12799/menu.json")!
-		let session = NSURLSession.sharedSession()
-		let task = session.dataTaskWithURL(url, completionHandler: { data, response, error in
-			if error != nil {
-				self._errored(error!.localizedDescription)
-			} else {
-				let httpResponse = response as NSHTTPURLResponse
-				if httpResponse.statusCode != 200 {
-					self._errored("HTTP \(httpResponse.statusCode)")
+		var urlString = "http://localhost:12799/menu.json"
+		if let urlFromDefaults = NSUserDefaults.standardUserDefaults().stringForKey("menuURL") {
+			urlString = urlFromDefaults
+		}
+		if let url = NSURL(string: urlString) {
+			let session = NSURLSession.sharedSession()
+			let task = session.dataTaskWithURL(url, completionHandler: { data, response, error in
+				if error != nil {
+					self._errored(error!.localizedDescription)
 				} else {
-					self._parseAndBuildMenu(data!)
+					let httpResponse = response as NSHTTPURLResponse
+					if httpResponse.statusCode != 200 {
+						self._errored("HTTP \(httpResponse.statusCode)")
+					} else {
+						self._parseAndBuildMenu(data!)
+					}
 				}
-			}
-		})
-		task.resume()
+			})
+			task.resume()
+		} else {
+			self._errored("Unable to construct URL for \(urlString)")
+		}
 	}
 	
 	func refreshFromMenu() {
@@ -245,7 +250,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, MenuDelegate {
 	}
 	
 	func _doneOperation() {
-		timer = NSTimer(timeInterval: reloadInterval, target: self, selector: Selector("autorefresh:"), userInfo: nil, repeats: false)
+		var refreshPeriod = 30.0
+		let refreshPeriodFromDefaults = NSUserDefaults.standardUserDefaults().doubleForKey("refreshPeriod")
+		if refreshPeriodFromDefaults < 0 {
+			return
+		}
+		if refreshPeriodFromDefaults > 0 {
+			refreshPeriod = refreshPeriodFromDefaults
+		}
+		timer = NSTimer(timeInterval: refreshPeriod, target: self, selector: Selector("autorefresh:"), userInfo: nil, repeats: false)
 		NSRunLoop.mainRunLoop().addTimer(timer!, forMode: NSDefaultRunLoopMode)
 		println("Make nstimer")
 	}
