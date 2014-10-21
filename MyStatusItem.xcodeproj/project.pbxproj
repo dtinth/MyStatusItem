@@ -23,10 +23,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		F845569719EB821900A0A767 /* MyStatusBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyStatusBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F845569719EB821900A0A767 /* MyStatusItem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyStatusItem.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F845569B19EB821900A0A767 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F845569C19EB821900A0A767 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F84556A719EB821900A0A767 /* MyStatusBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyStatusBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F84556A719EB821900A0A767 /* MyStatusItemTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyStatusItemTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F84556AC19EB821900A0A767 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F84556AD19EB821900A0A767 /* MyStatusBarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStatusBarTests.swift; sourceTree = "<group>"; };
 		F84556B719EB824C00A0A767 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -62,8 +62,8 @@
 		F845569819EB821900A0A767 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F845569719EB821900A0A767 /* MyStatusBar.app */,
-				F84556A719EB821900A0A767 /* MyStatusBarTests.xctest */,
+				F845569719EB821900A0A767 /* MyStatusItem.app */,
+				F84556A719EB821900A0A767 /* MyStatusItemTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -106,9 +106,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F845569619EB821900A0A767 /* MyStatusBar */ = {
+		F845569619EB821900A0A767 /* MyStatusItem */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F84556B119EB821900A0A767 /* Build configuration list for PBXNativeTarget "MyStatusBar" */;
+			buildConfigurationList = F84556B119EB821900A0A767 /* Build configuration list for PBXNativeTarget "MyStatusItem" */;
 			buildPhases = (
 				F845569319EB821900A0A767 /* Sources */,
 				F845569419EB821900A0A767 /* Frameworks */,
@@ -118,14 +118,14 @@
 			);
 			dependencies = (
 			);
-			name = MyStatusBar;
+			name = MyStatusItem;
 			productName = MyStatusBar;
-			productReference = F845569719EB821900A0A767 /* MyStatusBar.app */;
+			productReference = F845569719EB821900A0A767 /* MyStatusItem.app */;
 			productType = "com.apple.product-type.application";
 		};
-		F84556A619EB821900A0A767 /* MyStatusBarTests */ = {
+		F84556A619EB821900A0A767 /* MyStatusItemTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F84556B419EB821900A0A767 /* Build configuration list for PBXNativeTarget "MyStatusBarTests" */;
+			buildConfigurationList = F84556B419EB821900A0A767 /* Build configuration list for PBXNativeTarget "MyStatusItemTests" */;
 			buildPhases = (
 				F84556A319EB821900A0A767 /* Sources */,
 				F84556A419EB821900A0A767 /* Frameworks */,
@@ -136,9 +136,9 @@
 			dependencies = (
 				F84556A919EB821900A0A767 /* PBXTargetDependency */,
 			);
-			name = MyStatusBarTests;
+			name = MyStatusItemTests;
 			productName = MyStatusBarTests;
-			productReference = F84556A719EB821900A0A767 /* MyStatusBarTests.xctest */;
+			productReference = F84556A719EB821900A0A767 /* MyStatusItemTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -159,7 +159,7 @@
 					};
 				};
 			};
-			buildConfigurationList = F845569219EB821900A0A767 /* Build configuration list for PBXProject "MyStatusBar" */;
+			buildConfigurationList = F845569219EB821900A0A767 /* Build configuration list for PBXProject "MyStatusItem" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -172,8 +172,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F845569619EB821900A0A767 /* MyStatusBar */,
-				F84556A619EB821900A0A767 /* MyStatusBarTests */,
+				F845569619EB821900A0A767 /* MyStatusItem */,
+				F84556A619EB821900A0A767 /* MyStatusItemTests */,
 			);
 		};
 /* End PBXProject section */
@@ -218,7 +218,7 @@
 /* Begin PBXTargetDependency section */
 		F84556A919EB821900A0A767 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = F845569619EB821900A0A767 /* MyStatusBar */;
+			target = F845569619EB821900A0A767 /* MyStatusItem */;
 			targetProxy = F84556A819EB821900A0A767 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -308,7 +308,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = MyStatusBar/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = MyStatusItem;
 			};
 			name = Debug;
 		};
@@ -319,7 +319,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = MyStatusBar/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = MyStatusItem;
 			};
 			name = Release;
 		};
@@ -338,7 +338,7 @@
 				);
 				INFOPLIST_FILE = MyStatusBarTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = MyStatusItemTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyStatusBar.app/Contents/MacOS/MyStatusBar";
 			};
 			name = Debug;
@@ -354,7 +354,7 @@
 				);
 				INFOPLIST_FILE = MyStatusBarTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = MyStatusItemTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyStatusBar.app/Contents/MacOS/MyStatusBar";
 			};
 			name = Release;
@@ -362,7 +362,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F845569219EB821900A0A767 /* Build configuration list for PBXProject "MyStatusBar" */ = {
+		F845569219EB821900A0A767 /* Build configuration list for PBXProject "MyStatusItem" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F84556AF19EB821900A0A767 /* Debug */,
@@ -371,21 +371,23 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F84556B119EB821900A0A767 /* Build configuration list for PBXNativeTarget "MyStatusBar" */ = {
+		F84556B119EB821900A0A767 /* Build configuration list for PBXNativeTarget "MyStatusItem" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F84556B219EB821900A0A767 /* Debug */,
 				F84556B319EB821900A0A767 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
-		F84556B419EB821900A0A767 /* Build configuration list for PBXNativeTarget "MyStatusBarTests" */ = {
+		F84556B419EB821900A0A767 /* Build configuration list for PBXNativeTarget "MyStatusItemTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F84556B519EB821900A0A767 /* Debug */,
 				F84556B619EB821900A0A767 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
