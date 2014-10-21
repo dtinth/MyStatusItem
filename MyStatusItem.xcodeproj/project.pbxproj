@@ -53,8 +53,8 @@
 		F845568E19EB821900A0A767 = {
 			isa = PBXGroup;
 			children = (
-				F845569919EB821900A0A767 /* MyStatusBar */,
-				F84556AA19EB821900A0A767 /* MyStatusBarTests */,
+				F845569919EB821900A0A767 /* MyStatusItem */,
+				F84556AA19EB821900A0A767 /* MyStatusItemTests */,
 				F845569819EB821900A0A767 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -68,14 +68,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		F845569919EB821900A0A767 /* MyStatusBar */ = {
+		F845569919EB821900A0A767 /* MyStatusItem */ = {
 			isa = PBXGroup;
 			children = (
 				F845569C19EB821900A0A767 /* AppDelegate.swift */,
 				F845569A19EB821900A0A767 /* Supporting Files */,
 				F84556B719EB824C00A0A767 /* main.swift */,
 			);
-			path = MyStatusBar;
+			path = MyStatusItem;
 			sourceTree = "<group>";
 		};
 		F845569A19EB821900A0A767 /* Supporting Files */ = {
@@ -86,13 +86,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		F84556AA19EB821900A0A767 /* MyStatusBarTests */ = {
+		F84556AA19EB821900A0A767 /* MyStatusItemTests */ = {
 			isa = PBXGroup;
 			children = (
 				F84556AD19EB821900A0A767 /* MyStatusBarTests.swift */,
 				F84556AB19EB821900A0A767 /* Supporting Files */,
 			);
-			path = MyStatusBarTests;
+			path = MyStatusItemTests;
 			sourceTree = "<group>";
 		};
 		F84556AB19EB821900A0A767 /* Supporting Files */ = {
@@ -306,7 +306,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = MyStatusBar/Info.plist;
+				INFOPLIST_FILE = MyStatusItem/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_NAME = MyStatusItem;
 			};
@@ -317,7 +317,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = MyStatusBar/Info.plist;
+				INFOPLIST_FILE = MyStatusItem/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_NAME = MyStatusItem;
 			};
@@ -336,10 +336,10 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = MyStatusBarTests/Info.plist;
+				INFOPLIST_FILE = MyStatusItemTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = MyStatusItemTests;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyStatusBar.app/Contents/MacOS/MyStatusBar";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyStatusItem.app/Contents/MacOS/MyStatusItem";
 			};
 			name = Debug;
 		};
@@ -352,10 +352,10 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = MyStatusBarTests/Info.plist;
+				INFOPLIST_FILE = MyStatusItemTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = MyStatusItemTests;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyStatusBar.app/Contents/MacOS/MyStatusBar";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyStatusItem.app/Contents/MacOS/MyStatusItem";
 			};
 			name = Release;
 		};
