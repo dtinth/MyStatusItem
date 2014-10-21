@@ -10,10 +10,14 @@ import Cocoa
 
 typealias Item = [String: AnyObject]
 
-class Menu: NSObject {
+@objc protocol MenuDelegate {
+	func handleUrl(url: String) -> Void
+}
 
+class Menu: NSObject {
+	
 	var menu: NSMenu
-	var target: AnyObject
+	var target: MenuDelegate
 
 	var separator: NSMenuItem
 	var refresh: NSMenuItem
@@ -28,13 +32,14 @@ class Menu: NSObject {
 	
 	var menuItemToItem = [NSMenuItem: Item]()
 
-	init(target: AnyObject) {
+	init(target: MenuDelegate) {
 		self.target = target
 		menu = NSMenu()
+		menu.autoenablesItems = false
 		separator = NSMenuItem.separatorItem()
-		refresh = NSMenuItem(title: "Refresh", action: "refresh", keyEquivalent: "")
+		refresh = NSMenuItem(title: "Refresh", action: "refreshFromMenu", keyEquivalent: "r")
 		refresh.target = target
-		quit = NSMenuItem(title: "Quit", action: "quit", keyEquivalent: "")
+		quit = NSMenuItem(title: "Quit", action: "quit", keyEquivalent: "q")
 		quit.target = target
 		super.init()
 		rebuild()
@@ -51,28 +56,83 @@ class Menu: NSObject {
 	func buildFromItems() {
 		menuItemToItem.removeAll(keepCapacity: false)
 		for item in items {
-			let title = _titleForItem(item)
-			let menuItem = NSMenuItem(title: title, action: "itemSelected", keyEquivalent: "")
-			menuItem.target = self
-			menuItemToItem[menuItem] = item
-			menu.addItem(menuItem)
+			if _isSeparator(item) {
+				menu.addItem(NSMenuItem.separatorItem())
+			} else {
+				let title = _titleForItem(item)
+				let menuItem = NSMenuItem(title: title, action: "itemSelected:", keyEquivalent: "")
+				menuItem.target = self
+				menuItem.enabled = _shouldEnable(item)
+				if _isAlternate(item) {
+					menuItem.alternate = true
+					menuItem.keyEquivalentModifierMask = 524288 // NSAlternateKeyMask
+				}
+				menuItemToItem[menuItem] = item
+				menu.addItem(menuItem)
+			}
+		}
+	}
+	
+	func _shouldEnable(item: Item) -> Bool {
+		if let url = item["url"] as? String {
+			return true
+		}
+		if let script = item["script"] as? String {
+			return true
+		}
+		return false
+	}
+	
+	func _isAlternate(item: Item) -> Bool {
+		if let alternate = item["alternate"] as? Bool {
+			return alternate
+		}
+		return false
+	}
+	
+	func itemSelected(sender: AnyObject) {
+		if let item = menuItemToItem[sender as NSMenuItem] {
+			if let script = item["script"] as? String {
+				var error : NSDictionary?
+				NSAppleScript(source: script)?.executeAndReturnError(&error)
+				if error != nil {
+					let alert = NSAlert()
+					alert.messageText = "AppleScript Error"
+					alert.informativeText = "\(error!)"
+					alert.runModal()
+				}
+			}
+			if let url = item["url"] as? String {
+				target.handleUrl(url)
+			}
 		}
 	}
 	
 	func _titleForItem(item: Item) -> String {
-		if item["title"] != nil && item["title"]! is String {
-			return item["title"]! as String
+		if let title = item["title"] as? String {
+			return title
 		} else {
 			return "Missing title: \(item)"
+		}
+	}
+	
+	func _isSeparator(item: Item) -> Bool {
+		if let separator = item["separator"] as? Bool {
+			return separator
+		} else {
+			return false
 		}
 	}
 
 }
 
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, MenuDelegate {
 	
 	var statusItem: NSStatusItem!
 	var menu: Menu!
+	
+	var reloadInterval: NSTimeInterval = 30
+	var timer: NSTimer?
 	
 	func applicationDidFinishLaunching(aNotification: NSNotification) {
 		statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-1)
@@ -82,34 +142,124 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		refresh()
 	}
 	
-	func refresh() {
-		statusItem.title = "🔄"
-		menu.items = [
-			["title": "Loading..."]
-		]
-		let url = NSURL(string: "http://localhost:12799")!
+	func handleUrl(url: String) {
+		statusItem.title = "✳️"
+		if let url = NSURL(string: url) {
+			let session = NSURLSession.sharedSession()
+			let request = NSMutableURLRequest(URL: url)
+			request.HTTPMethod = "POST"
+			let task = session.dataTaskWithRequest(request, completionHandler: { data, response, error in
+				if error != nil {
+					self._handleUrlErrored(error!.localizedDescription)
+				} else {
+					let httpResponse = response as NSHTTPURLResponse
+					if httpResponse.statusCode < 200 || httpResponse.statusCode >= 300 {
+						self._handleUrlErrored("HTTP \(httpResponse.statusCode)\n\(url)")
+					} else {
+						self.refresh()
+					}
+				}
+			})
+			task.resume()
+		} else {
+			self._handleUrlErrored("Unable to create URL object... It's malformed?")
+		}
+	}
+	
+	func _handleUrlErrored(reason: String) {
+		let alert = NSAlert()
+		alert.messageText = "URL Action Error"
+		alert.informativeText = "\(reason)"
+		alert.runModal()
+		self.refresh()
+	}
+	
+	func refresh(subtly: Bool = false) {
+		_beginOperation()
+		if !subtly {
+			statusItem.title = "🔄"
+			menu.items = [
+				["title": "Loading..."]
+			]
+		}
+		let url = NSURL(string: "http://localhost:12799/menu.json")!
 		let session = NSURLSession.sharedSession()
 		let task = session.dataTaskWithURL(url, completionHandler: { data, response, error in
 			if error != nil {
-				self.errored(error!.localizedDescription)
+				self._errored(error!.localizedDescription)
 			} else {
+				let httpResponse = response as NSHTTPURLResponse
+				if httpResponse.statusCode != 200 {
+					self._errored("HTTP \(httpResponse.statusCode)")
+				} else {
+					self._parseAndBuildMenu(data!)
+				}
 			}
 		})
 		task.resume()
+	}
+	
+	func refreshFromMenu() {
+		refresh()
 	}
 	
 	func quit() {
 		exit(0)
 	}
 	
-	func errored(reason: String) {
+	func _parseAndBuildMenu(data: NSData) {
+		var jsonError: NSError?
+		let object: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &jsonError)
+		if jsonError != nil {
+			self._errored("Unable to parse JSON: \(jsonError!.localizedDescription)")
+		} else {
+			if let dictionary = object as? NSDictionary {
+				_processDictionaryAndBuildMenu(dictionary)
+			} else {
+				self._errored("Unable to parse JSON: It is not an dictionary")
+			}
+		}
+		_doneOperation()
+	}
+	
+	func _processDictionaryAndBuildMenu(dictionary: NSDictionary) {
+		if let title = dictionary["title"] as? String {
+			statusItem.title = title
+		}
+		if let items = dictionary["items"] as? [Item] {
+			menu.items = items
+		} else {
+			self._errored("Unable to parse JSON: There are no items")
+		}
+	}
+	
+	func _errored(reason: String) {
 		statusItem.title = "🆖"
 		menu.items = [
 			["title": "Unable to load: \(reason)"]
 		]
+		_doneOperation()
 	}
 	
 	func applicationWillTerminate(aNotification: NSNotification) {
+	}
+	
+	func _doneOperation() {
+		timer = NSTimer(timeInterval: reloadInterval, target: self, selector: Selector("autorefresh:"), userInfo: nil, repeats: false)
+		NSRunLoop.mainRunLoop().addTimer(timer!, forMode: NSDefaultRunLoopMode)
+		println("Make nstimer")
+	}
+	
+	func _beginOperation() {
+		if timer != nil {
+			println("Invalidate")
+		}
+		timer?.invalidate()
+	}
+	
+	func autorefresh(x: NSTimer!) {
+		println("Autorefresh")
+		refresh(subtly: true)
 	}
 	
 }
