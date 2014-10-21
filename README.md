@@ -92,11 +92,31 @@ While <kbd>option</kbd> key is held down, the alternate item replaces the previo
 
 
 
+Customization and Settings
+--------------------------
 
-Running at Startup
-------------------
+
+### Running at Startup
 
 Just put the app in Login Items.
+
+
+### Changing the Menu URL
+
+```bash
+defaults write th.in.dt.MyStatusItem menuURL -string 'http://localhost:22222/menu.php'
+```
+
+### Changing the Refresh Period
+
+```bash
+defaults write th.in.dt.MyStatusItem refreshPeriod -float 10
+```
+
+### Repositioning MyStatusItem in the Status Bar
+
+Use the awesome [Bartender](http://www.macbartender.com/) app.
+
 
 
 
@@ -114,29 +134,6 @@ but there are areas of improvements to make it more useful to others and to make
 
 
 Any contribution is appreciated!
-
-
-Changing the Default URL
-------------------------
-
-```bash
-defaults write th.in.dt.MyStatusItem menuURL -string 'http://localhost:22222/menu.json'
-```
-
-
-Changing the Refresh Period
-------------------------
-
-```bash
-defaults write th.in.dt.MyStatusItem refreshPeriod -float 10
-```
-
-
-
-Repositioning MyStatusItem in the Status Bar
---------------------------------------------
-
-Use the awesome [Bartender](http://www.macbartender.com/) app.
 
 
 
