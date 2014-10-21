@@ -1,0 +1,7 @@
+#!/bin/bash
+
+mkdir -p Releases
+xcodebuild -configuration Release
+cd build/Release
+zip -r ../../Releases/MyStatusItem MyStatusItem.app
+
