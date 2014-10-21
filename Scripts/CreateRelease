@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/bin/bash -e
 
 mkdir -p Releases
 xcodebuild -configuration Release
-cd build/Release
-zip -r ../../Releases/MyStatusItem MyStatusItem.app
+VERSION=`/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" /Users/dtinth/Xcode/MyStatusBar/build/Release/MyStatusItem.app/Contents/Info.plist`
+(cd build/Release && zip -r ../../Releases/MyStatusItem-$VERSION.zip MyStatusItem.app)
 
