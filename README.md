@@ -11,7 +11,10 @@ I created this tool because I suck at Cocoa.
 About
 -----
 
-This this a simple application that pulls the menu items from `http://localhost:12799/menu.json` and displays it on the status bar.
+This this a simple application that pulls the menu items from a URL (default: `http://localhost:12799/menu.json`) and displays it on the status bar.
+
+That means you can create your own menu using any language that can serve JSON over HTTP. [__See code examples in the Wiki!__](https://github.com/dtinth/MyStatusItem/wiki/Creating-Menus)
+
 
 
 Installation
@@ -100,8 +103,17 @@ Just put the app in Login Items.
 Help Me Please
 --------------
 
-Can someone create an icon for this? It would be appreciated.
+This project has fulfilled my needs already,
+but there are areas of improvements to make it more useful to others and to make it more cool:
 
+- Can someone create an icon for this?
+- Again, I suck at Cocoa, and now the code is messy. A refactor may make the code easier to work with.
+- More language examples in the [Wiki](https://github.com/dtinth/MyStatusItem/wiki/Creating-Menus).
+- Support nested submenus.
+- Windows / Linux port?
+
+
+Any contribution is appreciated!
 
 
 Changing the Default URL
