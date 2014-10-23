@@ -10,6 +10,8 @@
 		F845569D19EB821900A0A767 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F845569C19EB821900A0A767 /* AppDelegate.swift */; };
 		F84556AE19EB821900A0A767 /* MyStatusBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84556AD19EB821900A0A767 /* MyStatusBarTests.swift */; };
 		F84556B819EB824C00A0A767 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84556B719EB824C00A0A767 /* main.swift */; };
+		F88E06A119F8D08A0027B8A5 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88E06A019F8D08A0027B8A5 /* Menu.swift */; };
+		F88E06A319F8D0DF0027B8A5 /* MenuDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F88E06A219F8D0DF0027B8A5 /* MenuDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,6 +32,8 @@
 		F84556AC19EB821900A0A767 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F84556AD19EB821900A0A767 /* MyStatusBarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStatusBarTests.swift; sourceTree = "<group>"; };
 		F84556B719EB824C00A0A767 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		F88E06A019F8D08A0027B8A5 /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
+		F88E06A219F8D0DF0027B8A5 /* MenuDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,8 +76,10 @@
 			isa = PBXGroup;
 			children = (
 				F845569C19EB821900A0A767 /* AppDelegate.swift */,
+				F88E06A219F8D0DF0027B8A5 /* MenuDelegate.swift */,
 				F845569A19EB821900A0A767 /* Supporting Files */,
 				F84556B719EB824C00A0A767 /* main.swift */,
+				F88E06A019F8D08A0027B8A5 /* Menu.swift */,
 			);
 			path = MyStatusItem;
 			sourceTree = "<group>";
@@ -200,6 +206,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F88E06A119F8D08A0027B8A5 /* Menu.swift in Sources */,
+				F88E06A319F8D0DF0027B8A5 /* MenuDelegate.swift in Sources */,
 				F84556B819EB824C00A0A767 /* main.swift in Sources */,
 				F845569D19EB821900A0A767 /* AppDelegate.swift in Sources */,
 			);
